@@ -26,7 +26,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 document.body.appendChild(renderer.domElement);
 
 //generate particles
-const particle_cnt = 1000;
+const particle_cnt = 10000;
 const geometry = new THREE.BufferGeometry();
 const positions = new Float32Array(particle_cnt * 3);
 const randoms = new Float32Array(particle_cnt * 3);
@@ -63,7 +63,8 @@ geometry.setAttribute('random', new THREE.BufferAttribute(randoms, 3));
         fragmentShader: fragment_shader,
         uniforms:
         {
-          uTime: {value: 0.0}
+          u_time: {value: 0.0},
+          u_size: {value: 1.0}
         },
         transparent: true,
       }
@@ -79,7 +80,7 @@ geometry.setAttribute('random', new THREE.BufferAttribute(randoms, 3));
 function animate(material) 
 {
   const time = performance.now() / 1000;
-  material.uniforms.uTime.value = time;
+  material.uniforms.u_time.value = time;
 
   requestAnimationFrame(() => animate(material));
   controls.update();
