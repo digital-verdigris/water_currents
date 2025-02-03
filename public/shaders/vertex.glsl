@@ -63,10 +63,12 @@ void main()
     //randomize particle positions across the normal and binormal
     pos += (normal * cx + binormal * cy);
 
+
+    vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+
     //set the size of the particles
-    gl_PointSize = u_size;
+    gl_PointSize = u_size * 1.0 / -mvPosition.z;
 
     //project the vectors to screenspace using MVP matrices
-    vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
     gl_Position = projectionMatrix * mvPosition;
 }
