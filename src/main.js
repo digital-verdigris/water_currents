@@ -94,17 +94,17 @@ const sphere_normal_map = new THREE.TextureLoader().load('/textures/sphere_norma
 
   for(let i = 0; i <= 100; i++)
   {
-    let angle = 2*Math.PI*i/100;
-    let x = Math.sin(angle) + 2.0 * Math.sin(2.0 * angle);
-    let y = Math.cos(angle) - 2.0 * Math.cos(2.0 * angle);
-    let z = -Math.sin(3.0 * angle);
+    let angle = 2 * Math.PI * i/100;
+    let x = angle;
+    let y = angle * angle;
+    let z = 0;
 
     points.push(new THREE.Vector3(x, y, z));
   }
 
   let curve = new THREE.CatmullRomCurve3(points);
-  curve.closed = true;
-  let tube_geo = new THREE.TubeGeometry(curve, 100, 0.4, 100, true);
+  curve.closed = false;
+  let tube_geo = new THREE.TubeGeometry(curve, 100, 0.4, 100, false);
 
   const stripes_texture = new THREE.TextureLoader().load('/textures/water_caustic_texture.jpg');
 

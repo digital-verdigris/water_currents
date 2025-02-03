@@ -11,9 +11,9 @@ vec3 get_pos(float progress)
     vec3 pos = vec3(0.0);
     float angle = progress * PI * 2.0;
 
-    pos.x = sin(angle) + 2.0 * sin(2.0 * angle);
-    pos.y = cos(angle) - 2.0 * cos(2.0 * angle);
-    pos.z = -sin(3.0 * angle);
+    pos.x = angle;
+    pos.y = angle * angle;
+    pos.z = 0.0;
 
     return pos;
 }
@@ -23,10 +23,10 @@ vec3 get_tangent(float progress)
 {
     vec3 tangent = vec3(0.0);
     float angle = progress * PI * 2.0;
-
-    tangent.x = cos(angle) + 4.0 * cos(2.0 * angle);
-    tangent.y = -sin(angle) + 4.0 * sin(2.0 * angle);
-    tangent.z = 3.0 * -cos(3.0 * angle);
+    
+    tangent.x = 1.0;
+    tangent.y = angle * 2.0;
+    tangent.z = 0.0;
 
     return normalize(tangent);
 }
@@ -37,9 +37,9 @@ vec3 get_normal(float progress)
     vec3 normal = vec3(0.0);
     float angle = progress * PI * 2.0;
 
-    normal.x = -sin(angle) - 8.0 * sin(2.0 * angle);
-    normal.y = -cos(angle) + 8.0 * cos(2.0 * angle);
-    normal.z = 9.0 * sin(3.0 * angle);
+    normal.x = 0.0;
+    normal.y = 2.0;
+    normal.z = 0.0;
 
     return normalize(normal);
 }
