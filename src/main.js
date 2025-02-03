@@ -19,6 +19,7 @@ camera.position.z = 5;
 //setup renderer
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x123456);
 
 //setup controls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -47,6 +48,9 @@ for (let i = 0; i < particle_cnt; i++)
 geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 geometry.setAttribute('random', new THREE.BufferAttribute(randoms, 3));
 
+const texture_loader = new THREE.TextureLoader();
+const sphere_normal_map = texture_loader.load('/textures/sphere_normal.png');
+
 (async function()
 {
 
@@ -64,9 +68,11 @@ geometry.setAttribute('random', new THREE.BufferAttribute(randoms, 3));
         uniforms:
         {
           u_time: {value: 0.0},
-          u_size: {value: 1.0}
+          u_size: {value: 5.0},
+          u_normals: {value: sphere_normal_map}
         },
         transparent: true,
+        depthTest: false,
       }
     );
   
