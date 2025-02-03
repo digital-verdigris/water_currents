@@ -48,7 +48,7 @@ void main()
 {
     //take position as vector
     vec3 pos = position;
-    float progress = fract(u_time * 0.01 + random.x);
+    float progress = fract(u_time * 0.05 + random.x);
 
     //get particle position based on parametric function
     pos = get_pos(progress);

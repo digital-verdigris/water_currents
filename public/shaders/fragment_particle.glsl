@@ -21,5 +21,5 @@ void main()
     float diffuse = max(0.0, dot(normal, normalize(light_pos)));
 
     //set the colors for the particles
-    gl_FragColor = vec4(vec3(diffuse), alpha * diffuse);
+    gl_FragColor = vec4(color, alpha * diffuse*0.5);
 }
