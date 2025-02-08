@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three-stdlib';
 import { current } from './current.js';
 
-async function load_resources() 
+async function load_current_resources() 
 {
   const particle_vertex_shader = await load_shader('/shaders/vertex_particle.glsl');
   console.log("vertex shader loaded:", particle_vertex_shader);
@@ -22,7 +22,7 @@ async function load_resources()
   tube_texture.wrapS = THREE.RepeatWrapping;
   tube_texture.wrapT = THREE.RepeatWrapping;
 
-  return {
+  return{
     particle_vertex_shader,
     particle_fragment_shader,
     tube_vertex_shader,
@@ -82,11 +82,10 @@ current generation
 async function main()
 {
   //load shaders and textures
-  const resources = await load_resources();
+  const current_resources = await load_current_resources();
 
   //create a current instance
-  const a_current = new current(scene, resources.particle_vertex_shader, resources.particle_fragment_shader, 
-    resources.particle_texture, resources.tube_vertex_shader, resources.tube_fragment_shader, resources.tube_texture);
+  const a_current = new current(scene, current_resources);
   
   //animate scene
   function animate() 

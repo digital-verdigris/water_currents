@@ -109,11 +109,11 @@ class tube
 //exported current class for use
 export class current
 {
-    constructor(scene, particle_vertex_shader, particle_fragment_shader, particle_texture, tube_vertex_shader, tube_fragment_shader, tube_texture)
+    constructor(scene, resources)
     {
         //create particles/tube and add both to scene
-        this.particles = new particles(particle_vertex_shader, particle_fragment_shader, particle_texture);
-        this.tube = new tube(tube_vertex_shader, tube_fragment_shader, tube_texture);
+        this.particles = new particles(resources.particle_vertex_shader, resources.particle_fragment_shader, resources.particle_texture);
+        this.tube = new tube(resources.tube_vertex_shader, resources.tube_fragment_shader, resources.tube_texture);
         this.particles.add_to_scene(scene);
         this.tube.add_to_scene(scene);
     }
