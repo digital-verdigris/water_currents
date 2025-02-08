@@ -10,6 +10,7 @@ class particles
         this.geometry = new THREE.BufferGeometry();
         this.positions = new Float32Array(this.particle_cnt * 3);
         this.randoms = new Float32Array(this.particle_cnt * 3);
+        this.tangents = new Float32Array(this.particle_cnt * 3);
 
         //randomly set particle positions and randoms (for flow intensity)
         for (let i = 0; i < this.particle_cnt; i++) 
@@ -39,10 +40,15 @@ class particles
             this.randoms[i * 3] = Math.random() * 2 - 1;
             this.randoms[i * 3 + 1] = Math.random() * 2 - 1;
             this.randoms[i * 3 + 2] = Math.random() * 2 - 1;
+
+            this.tangents[i * 3] = tangent.x;
+            this.tangents[i * 3 + 1] = tangent.y;
+            this.tangents[i * 3 + 2] = tangent.z;
         }
         //set the attributes in the buffer
         this.geometry.setAttribute('position', new THREE.BufferAttribute(this.positions, 3));
         this.geometry.setAttribute('random', new THREE.BufferAttribute(this.randoms, 3));
+        this.geometry.setAttribute('tangent', new THREE.BufferAttribute(this.tangents, 3));
 
         //create the material
         this.material = new THREE.ShaderMaterial
@@ -136,7 +142,7 @@ export class current
 
     set_speed(new_speed) //change the speed of the current flow
     {
-        this.particles.material.uniforms.u_speed.value = new_speed / 2;
+        this.particles.material.uniforms.u_speed.value = new_speed * 5.0;
         this.tube.material.uniforms.u_speed.value = new_speed;
     }
 }

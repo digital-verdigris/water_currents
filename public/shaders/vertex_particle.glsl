@@ -7,13 +7,17 @@ attribute vec3 tangent;
 
 float PI = 3.14159265;
 
+float calculate_progress(float base_progress, float time, float speed, float randomness) {
+    return mod(base_progress + time * speed + randomness, 1.0);
+}
+
 void main() 
 {
+    float base_progress = random.x;
+    float progress = fract(base_progress + u_time * u_speed);
     //take position as vector
-    vec3 pos = position;
+    vec3 pos = position + tangent * progress;
 
-    pos += random.x * 0.1; 
-    
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
 
     //set the size of the particles

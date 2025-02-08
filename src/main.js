@@ -91,7 +91,7 @@ let points =
   new THREE.Vector3(0, 5, 0)
 ]
 
-let curve = new THREE.CatmullRomCurve3(points);
+let curve = new THREE.CatmullRomCurve3(points, false);
 
 async function main()
 {
