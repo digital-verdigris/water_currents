@@ -2,7 +2,19 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three-stdlib';
 import { current } from './current.js';
 
-async function load_current_resources() 
+/*
+resource loading
+*/
+
+//helper function to load shaders
+async function load_shader(path) {
+  const response = await fetch(path);
+  return response.text();
+}
+
+//loads current shaders and textures
+//async to ensure they are loaded before code is executed
+async function load_current_resources()
 {
   const particle_vertex_shader = await load_shader('/shaders/vertex_particle.glsl');
   console.log("vertex shader loaded:", particle_vertex_shader);
@@ -30,13 +42,6 @@ async function load_current_resources()
     particle_texture,
     tube_texture
   };
-}
-
-//helper function to load shaders
-async function load_shader(path) 
-{
-  const response = await fetch(path);
-  return response.text();
 }
 
 /* 
@@ -74,10 +79,19 @@ function on_window_resize()
 
 window.addEventListener('resize', on_window_resize, false);
 
-
 /*
 current generation
 */
+
+let points = 
+[
+  new THREE.Vector3(0, 0, 0),
+  new THREE.Vector3(10, 0, 0),
+  new THREE.Vector3(10, 5, 0),
+  new THREE.Vector3(0, 5, 0)
+]
+
+let curve = new THREE.CatmullRomCurve3(points);
 
 async function main()
 {
@@ -85,13 +99,14 @@ async function main()
   const current_resources = await load_current_resources();
 
   //create a current instance
-  const a_current = new current(scene, current_resources);
+  const a_current = new current(scene, current_resources, curve);
   
   //animate scene
   function animate() 
   {
     requestAnimationFrame(animate);
     a_current.animate(); //update uniforms
+    a_current.set_speed(0.1); //set the speed of the particles/texture flow
     controls.update(); //update scene based on control usage
     renderer.render(scene, camera); //render the scene
   }

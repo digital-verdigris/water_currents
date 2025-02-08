@@ -1,10 +1,11 @@
 uniform sampler2D u_stripes;
 uniform float u_time;
+uniform float u_speed;
 
 in vec2 v_uv;
 void main() 
 {
-    float time1 = u_time * 0.1;
+    float time1 = u_time * u_speed;
     float stripes_texture1 = texture2D(u_stripes, v_uv - time1 * 1.5).r;
     float stripes_texture2 = texture2D(u_stripes, v_uv * vec2(8.0, 4.0) - time1 * 1.5).r;
     
